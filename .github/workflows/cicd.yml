@@ -26,10 +26,10 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build Frontend Image
-      run: docker build -t ${{ secrets.DOCKER_USERNAME }}/frontend-app -f ./frontend/Dockerfile ./frontend
+      run: docker build -t ${{ secrets.DOCKER_USERNAME }}/frontend-app -f frontend/Dockerfile ./frontend
 
     - name: Build Backend Image
-      run: docker build -t ${{ secrets.DOCKER_USERNAME }}/backend-app ./backend
+      run: docker build -t ${{ secrets.DOCKER_USERNAME }}/backend-app -f backend/Dockerfile ./backend
 
     - name: Push Frontend Image
       run: docker push ${{ secrets.DOCKER_USERNAME }}/frontend-app
