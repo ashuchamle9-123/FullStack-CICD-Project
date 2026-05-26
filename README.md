@@ -1,4 +1,4 @@
-<img width="960" height="540" alt="image" src="https://github.com/user-attachments/assets/8f13ee97-2ff5-460f-b3aa-8ce0daa829c7" /># 🚀 FullStack CI/CD Project
+ 🚀 FullStack CI/CD Project
 
 This project demonstrates a complete CI/CD pipeline for a Full Stack Application using React, Node.js, Docker, GitHub Actions, DockerHub, and AWS EC2.
 
@@ -122,19 +122,21 @@ Services used:
 ## GitHub Actions Pipeline
 
 ```md
-
+<img width="960" height="540" alt="image" src="https://github.com/user-attachments/assets/8f13ee97-2ff5-460f-b3aa-8ce0daa829c7" />#
 ```
 
 ## Docker Containers Running
 
 ```md
-![Docker Containers](images/docker-running.png)
+<img width="960" height="540" alt="image" src="https://github.com/user-attachments/assets/c44e1e95-29bb-483c-be1a-8bf93e946cca" />
+
 ```
 
 ## Frontend Application
 
 ```md
-![Frontend UI](images/frontend-ui.png)
+<img width="1920" height="1080" alt="FullStack-CICD-Project frontend run sucessfully" src="https://github.com/user-attachments/assets/3113b4f1-5f51-4c51-b497-c305eb6b998a" />
+
 ```
 
 ---
