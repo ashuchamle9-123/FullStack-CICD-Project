@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: Full Stack CI/CD Pipeline
 
 on:
   push:
@@ -7,32 +7,56 @@ on:
 
 jobs:
 
-  build-and-deploy:
+  build-and-push:
 
     runs-on: ubuntu-latest
 
     steps:
 
-    - name: Checkout Code
-      uses: actions/checkout@v4
+      # Checkout Repository
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
+      # Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
-    - name: Login to DockerHub
-      uses: docker/login-action@v3
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+      # Frontend Dependencies
+      - name: Install Frontend Dependencies
+        working-directory: ./frontend
+        run: npm install
 
-    - name: Build Frontend Image
-      run: docker build -t ${{ secrets.DOCKER_USERNAME }}/frontend-app -f frontend/Dockerfile ./frontend
+      # Frontend Build
+      - name: Build Frontend
+        working-directory: ./frontend
+        run: npm run build
 
-    - name: Build Backend Image
-      run: docker build -t ${{ secrets.DOCKER_USERNAME }}/backend-app -f backend/Dockerfile ./backend
+      # Backend Dependencies
+      - name: Install Backend Dependencies
+        working-directory: ./backend
+        run: npm install
 
-    - name: Push Frontend Image
-      run: docker push ${{ secrets.DOCKER_USERNAME }}/frontend-app
+      # DockerHub Login
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Push Backend Image
-      run: docker push ${{ secrets.DOCKER_USERNAME }}/backend-app
+      # Build Frontend Docker Image
+      - name: Build Frontend Docker Image
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/frontend-app:latest ./frontend
+
+      # Build Backend Docker Image
+      - name: Build Backend Docker Image
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/backend-app:latest ./backend
+
+      # Push Frontend Image
+      - name: Push Frontend Docker Image
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/frontend-app:latest
+
+      # Push Backend Image
+      - name: Push Backend Docker Image
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/backend-app:latest
